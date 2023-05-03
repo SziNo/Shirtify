@@ -1,23 +1,43 @@
+import { useEffect, useRef } from 'react'
 import CustomButton from './CustomButton'
 import state from '../store'
 import { useSnapshot } from 'valtio'
 import { generateStyle } from '../config/helpers'
 
-const FilePicker = ({ file, setFile, readFile }) => {
+const FilePicker = ({ file, setFile, readFile, setActiveEditorTab }) => {
   const snap = useSnapshot(state)
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target) &&
+        !event.target.closest('.tab-btn')
+      ) {
+        setActiveEditorTab('')
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
 
   return (
-    <div className='filepicker-container'>
+    <div ref={modalRef} className='filepicker-container'>
       <div className='flex-1 flex flex-col items-center'>
         <input
           id='file-upload'
           type='file'
           accept='image/*'
           onChange={(e) => setFile(e.target.files[0])}
+          className='w-full pointer-events-none'
         />
         <label
           htmlFor='file-upload'
-          className='filepicker-label min-w-full text-center'
+          className='filepicker-label text-center'
           style={generateStyle(snap)}
         >
           Upload File
