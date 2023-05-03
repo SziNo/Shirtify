@@ -4,6 +4,7 @@ import { Environment, Center } from '@react-three/drei'
 import Shirt from './Shirt'
 import Backdrop from './Backdrop'
 import CameraRig from './CameraRig'
+import Background from './Background'
 
 const CanvasModel = () => {
   return (
@@ -13,6 +14,7 @@ const CanvasModel = () => {
       gl={{ preserveDrawingBuffer: true }}
       className='w-full max-w-full h-full transition-all ease-in'
     >
+      <Background url={'/unsplash.jpg'} />
       <ambientLight intensity={0.5} />
       <Environment preset='city' />
 
