@@ -25,7 +25,7 @@ const Home = () => {
               alt='logo'
               className='w-8 h-8 object-contain mr-3'
             />
-            Design-o-matic
+            Shirtify
           </motion.header>
 
           <motion.div className='home-content' {...headContainerAnimation}>
@@ -40,7 +40,7 @@ const Home = () => {
             >
               <p className='max-w-md font-normal text-gray-600 text-base'>
                 Create your unique and exclusive shirt with our brand-new 3D
-                customization tool. <strong>Unleash your imagination</strong>
+                customization tool. <strong>Unleash your imagination</strong>{' '}
                 and define your own style.
               </p>
 
