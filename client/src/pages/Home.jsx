@@ -16,12 +16,16 @@ const Home = () => {
     <AnimatePresence>
       {snap.intro && (
         <motion.div className='home' {...slideAnimation('left')}>
-          <motion.header {...slideAnimation('down')}>
+          <motion.header
+            {...slideAnimation('down')}
+            className='flex items-center w-auto font-semibold sm:text-[22px] text-[16px]'
+          >
             <img
               src='./threejs.png'
               alt='logo'
-              className='w-8 h-8 object-contain'
+              className='w-8 h-8 object-contain mr-3'
             />
+            Design-o-matic
           </motion.header>
 
           <motion.div className='home-content' {...headContainerAnimation}>
@@ -32,11 +36,11 @@ const Home = () => {
             </motion.div>
             <motion.div
               {...headContentAnimation}
-              className='flex flex-col gap-5'
+              className='flex flex-col gap-5 font-'
             >
               <p className='max-w-md font-normal text-gray-600 text-base'>
                 Create your unique and exclusive shirt with our brand-new 3D
-                customization tool. <strong>Unleash your imagination</strong>{' '}
+                customization tool. <strong>Unleash your imagination</strong>
                 and define your own style.
               </p>
 
