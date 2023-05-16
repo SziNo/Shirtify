@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSnapshot } from 'valtio'
@@ -20,15 +21,21 @@ const Customizer = () => {
   const generateTabContent = () => {
     switch (activeEditorTab) {
       case 'colorpicker':
-        return <ColorPicker setActiveEditorTab={setActiveEditorTab} />
+        return (
+          <Suspense fallback={null}>
+            <ColorPicker setActiveEditorTab={setActiveEditorTab} />
+          </Suspense>
+        )
       case 'filepicker':
         return (
-          <FilePicker
-            file={file}
-            setFile={setFile}
-            readFile={readFile}
-            setActiveEditorTab={setActiveEditorTab}
-          />
+          <Suspense fallback={null}>
+            <FilePicker
+              file={file}
+              setFile={setFile}
+              readFile={readFile}
+              setActiveEditorTab={setActiveEditorTab}
+            />
+          </Suspense>
         )
       default:
         return null
@@ -88,11 +95,13 @@ const Customizer = () => {
             <div className='flex items-center min-h-screen'>
               <div className='editortabs-container tabs'>
                 {EditorTabs.map((tab) => (
-                  <Tab
-                    key={tab.name}
-                    tab={tab}
-                    handleClick={() => setActiveEditorTab(tab.name)}
-                  />
+                  <Suspense fallback={null}>
+                    <Tab
+                      key={tab.name}
+                      tab={tab}
+                      handleClick={() => setActiveEditorTab(tab.name)}
+                    />
+                  </Suspense>
                 ))}
 
                 {generateTabContent()}
@@ -104,11 +113,13 @@ const Customizer = () => {
             className='absolute z-10 top-5 right-5'
             {...fadeAnimation}
           >
-            <CustomButton
-              title='Go Back'
-              handleClick={() => (state.intro = true)}
-              customStyles='w-fit px-4 py-2.5 font-bold text-sm'
-            />
+            <Suspense fallback={null}>
+              <CustomButton
+                title='Go Back'
+                handleClick={() => (state.intro = true)}
+                customStyles='w-fit px-4 py-2.5 font-bold text-sm'
+              />
+            </Suspense>
           </motion.div>
 
           <motion.div
@@ -116,13 +127,15 @@ const Customizer = () => {
             {...slideAnimation('up')}
           >
             {FilterTabs.map((tab) => (
-              <Tab
-                key={tab.name}
-                tab={tab}
-                isFilterTab
-                isActiveTab={activeFilterTab[tab.name]}
-                handleClick={() => handleActiveFilterTab(tab.name)}
-              />
+              <Suspense fallback={null}>
+                <Tab
+                  key={tab.name}
+                  tab={tab}
+                  isFilterTab
+                  isActiveTab={activeFilterTab[tab.name]}
+                  handleClick={() => handleActiveFilterTab(tab.name)}
+                />
+              </Suspense>
             ))}
           </motion.div>
         </>

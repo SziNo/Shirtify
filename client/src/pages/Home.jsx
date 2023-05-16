@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSnapshot } from 'valtio'
 import {
@@ -44,11 +45,13 @@ const Home = () => {
                 and define your own style.
               </p>
 
-              <CustomButton
-                title='Customize It'
-                handleClick={() => (state.intro = false)}
-                customStyles='w-fit px-4 py-2.5 font-bold text-sm'
-              />
+              <Suspense fallback={null}>
+                <CustomButton
+                  title='Customize It'
+                  handleClick={() => (state.intro = false)}
+                  customStyles='w-fit px-4 py-2.5 font-bold text-sm'
+                />
+              </Suspense>
             </motion.div>
           </motion.div>
         </motion.div>
