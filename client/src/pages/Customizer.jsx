@@ -95,9 +95,8 @@ const Customizer = () => {
             <div className='flex items-center min-h-screen'>
               <div className='editortabs-container tabs'>
                 {EditorTabs.map((tab) => (
-                  <Suspense fallback={null}>
+                  <Suspense key={tab.name} fallback={null}>
                     <Tab
-                      key={tab.name}
                       tab={tab}
                       handleClick={() => setActiveEditorTab(tab.name)}
                     />
@@ -127,9 +126,8 @@ const Customizer = () => {
             {...slideAnimation('up')}
           >
             {FilterTabs.map((tab) => (
-              <Suspense fallback={null}>
+              <Suspense key={tab.name} fallback={null}>
                 <Tab
-                  key={tab.name}
                   tab={tab}
                   isFilterTab
                   isActiveTab={activeFilterTab[tab.name]}
