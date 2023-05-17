@@ -21,21 +21,15 @@ const Customizer = () => {
   const generateTabContent = () => {
     switch (activeEditorTab) {
       case 'colorpicker':
-        return (
-          <Suspense fallback={null}>
-            <ColorPicker setActiveEditorTab={setActiveEditorTab} />
-          </Suspense>
-        )
+        return <ColorPicker setActiveEditorTab={setActiveEditorTab} />
       case 'filepicker':
         return (
-          <Suspense fallback={null}>
-            <FilePicker
-              file={file}
-              setFile={setFile}
-              readFile={readFile}
-              setActiveEditorTab={setActiveEditorTab}
-            />
-          </Suspense>
+          <FilePicker
+            file={file}
+            setFile={setFile}
+            readFile={readFile}
+            setActiveEditorTab={setActiveEditorTab}
+          />
         )
       default:
         return null
@@ -84,61 +78,59 @@ const Customizer = () => {
   }
 
   return (
-    <AnimatePresence>
-      {!snap.intro && (
-        <>
-          <motion.div
-            key='custom'
-            className='absolute top-0 left-0 z-10'
-            {...slideAnimation('left')}
-          >
-            <div className='flex items-center min-h-screen'>
-              <div className='editortabs-container tabs'>
-                {EditorTabs.map((tab) => (
-                  <Suspense key={tab.name} fallback={null}>
+    <Suspense fallback={null}>
+      <AnimatePresence>
+        {!snap.intro && (
+          <>
+            <motion.div
+              key='custom'
+              className='absolute top-0 left-0 z-10'
+              {...slideAnimation('left')}
+            >
+              <div className='flex items-center min-h-screen'>
+                <div className='editortabs-container tabs'>
+                  {EditorTabs.map((tab) => (
                     <Tab
+                      key={tab.name}
                       tab={tab}
                       handleClick={() => setActiveEditorTab(tab.name)}
                     />
-                  </Suspense>
-                ))}
+                  ))}
 
-                {generateTabContent()}
+                  {generateTabContent()}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          <motion.div
-            className='absolute z-10 top-5 right-5'
-            {...fadeAnimation}
-          >
-            <Suspense fallback={null}>
+            <motion.div
+              className='absolute z-10 top-5 right-5'
+              {...fadeAnimation}
+            >
               <CustomButton
                 title='Go Back'
                 handleClick={() => (state.intro = true)}
                 customStyles='w-fit px-4 py-2.5 font-bold text-sm'
               />
-            </Suspense>
-          </motion.div>
+            </motion.div>
 
-          <motion.div
-            className='filtertabs-container'
-            {...slideAnimation('up')}
-          >
-            {FilterTabs.map((tab) => (
-              <Suspense key={tab.name} fallback={null}>
+            <motion.div
+              className='filtertabs-container'
+              {...slideAnimation('up')}
+            >
+              {FilterTabs.map((tab) => (
                 <Tab
+                  key={tab.name}
                   tab={tab}
                   isFilterTab
                   isActiveTab={activeFilterTab[tab.name]}
                   handleClick={() => handleActiveFilterTab(tab.name)}
                 />
-              </Suspense>
-            ))}
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </Suspense>
   )
 }
 
