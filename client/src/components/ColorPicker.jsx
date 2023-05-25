@@ -10,8 +10,7 @@ const ColorPicker = ({ setActiveEditorTab }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target) &&
+        !modalRef.current?.contains(event.target) &&
         !event.target.closest('.tab-btn')
       ) {
         setActiveEditorTab('')
